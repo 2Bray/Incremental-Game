@@ -33,13 +33,11 @@ public class GameManagerScript : MonoBehaviour
     private List<ResourceControllerScript> _activeResources = new List<ResourceControllerScript>();
     private List<TapTextScript> _tapTextPool = new List<TapTextScript>();
     private float _collectSecond;
-    private double _totalGold;
 
     public GameObject TapTextPrefab;
-
     public Transform CoinIcon;
 
-    public double TotalGold { get; private set; }
+    int index = 0;
 
     private void Start()
     {
@@ -71,14 +69,16 @@ public class GameManagerScript : MonoBehaviour
             GameObject obj = Instantiate(ResourcePrefab.gameObject, ResourcesParent, false);
             ResourceControllerScript resource = obj.GetComponent<ResourceControllerScript>();
 
-            resource.SetConfig(config);
+            resource.SetConfig(index,config);
             obj.gameObject.SetActive(showResources);
             if (showResources && !resource.IsUnlocked)
             {
                 showResources = false;
             }
             _activeResources.Add(resource);
+            index++;
         }
+        GoldInfo.text = $"Gold: { UserDataManager.Progress.Gold.ToString("0") }";
     }
 
     private void CollectPerSecond()
@@ -101,9 +101,8 @@ public class GameManagerScript : MonoBehaviour
 
     public void AddGold(double value)
     {
-        _totalGold += value;
-        GoldInfo.text = $"Gold: { _totalGold.ToString("0") }";
-        TotalGold = _totalGold;
+        UserDataManager.Progress.Gold += value;
+        GoldInfo.text = $"Gold: { UserDataManager.Progress.Gold.ToString("0") }";
     }
 
     public void CollectByTap(Vector3 tapPosition, Transform parent)
@@ -159,11 +158,11 @@ public class GameManagerScript : MonoBehaviour
             bool isBuyable = false;
             if (resource.IsUnlocked)
             {
-                isBuyable = TotalGold >= resource.GetUpgradeCost();
+                isBuyable = UserDataManager.Progress.Gold >= resource.GetUpgradeCost();
             }
             else
             {
-                isBuyable = TotalGold >= resource.GetUnlockCost();
+                isBuyable = UserDataManager.Progress.Gold >= resource.GetUnlockCost();
             }
             resource.ResourceImage.sprite = ResourcesSprites[isBuyable ? 1 : 0];
         }
@@ -171,6 +170,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void clickExit()
     {
+        UserDataManager.Save();
         Application.Quit();
     }
 
