@@ -1,4 +1,0 @@
-#Fri Oct 01 04:57:51 ICT 2021
-base.0=C\:\\Users\\HP\\Documents\\UnityProject\\Incremental Game (FireBase)\\Temp\\gradleOut\\launcher\\build\\intermediates\\transforms\\dexMerger\\release\\0
-path.0=classes.dex
-renamed.0=classes.dex
