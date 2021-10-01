@@ -1,5 +1,1 @@
-Repositori Untuk Chapter Incremental Game
-
-Muhammad Iqbal (149)
-
-Branch Main (Chapter-1), Branch Local Storage (Chapter-8), Branch Implement Firebase (Chapter-8)
+Link Repositori Untuk Folder Assets & Librarry : https://drive.google.com/drive/folders/1Kdq6GwIUX_2eegpO8c7lLiaxUrRWSWJp?usp=sharing
